@@ -81,7 +81,8 @@ public class CsvFormatter {
     private void appendTrackpoint(StringBuilder sb, Trackpoint tp, Instant activityStart) {
         Instant tpTime = parseInstant(tp.time());
         String elapsed = (tpTime != null && activityStart != null)
-                ? String.valueOf(tpTime.getEpochSecond() - activityStart.getEpochSecond())
+                ? String.format("%.2f", (tpTime.getEpochSecond() - activityStart.getEpochSecond())
+                        + (tpTime.getNano() - activityStart.getNano()) / 1_000_000_000.0)
                 : csv(tp.time());
 
         sb.append(tp.lapNumber()).append(',')
