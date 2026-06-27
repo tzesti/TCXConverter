@@ -5,6 +5,7 @@ import com.tcxconverter.model.Lap;
 import com.tcxconverter.model.TcxData;
 import com.tcxconverter.model.Trackpoint;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.OptionalDouble;
 
@@ -51,12 +52,14 @@ public class CsvFormatter {
             appendLapSummary(sb, lap);
         }
 
+        Instant activityStart = parseInstant(activity.id());
+
         sb.append("\n# TRACKPOINTS\n");
-        sb.append("lap_number,time,altitude_m,distance_m,")
+        sb.append("lap_number,elapsed_seconds,altitude_m,distance_m,")
           .append("heart_rate_bpm,cadence,speed_ms,run_cadence,watts,sensor_state\n");
         for (Lap lap : activity.laps()) {
             for (Trackpoint tp : lap.trackpoints()) {
-                appendTrackpoint(sb, tp);
+                appendTrackpoint(sb, tp, activityStart);
             }
         }
     }
@@ -75,9 +78,14 @@ public class CsvFormatter {
           .append(csv(lap.triggerMethod())).append('\n');
     }
 
-    private void appendTrackpoint(StringBuilder sb, Trackpoint tp) {
+    private void appendTrackpoint(StringBuilder sb, Trackpoint tp, Instant activityStart) {
+        Instant tpTime = parseInstant(tp.time());
+        String elapsed = (tpTime != null && activityStart != null)
+                ? String.valueOf(tpTime.getEpochSecond() - activityStart.getEpochSecond())
+                : csv(tp.time());
+
         sb.append(tp.lapNumber()).append(',')
-          .append(csv(tp.time())).append(',')
+          .append(elapsed).append(',')
           .append(fmt(tp.altitudeMeters())).append(',')
           .append(fmt(tp.distanceMeters())).append(',')
           .append(fmt(tp.heartRateBpm())).append(',')
@@ -86,6 +94,11 @@ public class CsvFormatter {
           .append(fmt(tp.runCadence())).append(',')
           .append(fmt(tp.watts())).append(',')
           .append(csv(tp.sensorState())).append('\n');
+    }
+
+    private Instant parseInstant(String timestamp) {
+        if (timestamp == null || timestamp.isEmpty()) return null;
+        try { return Instant.parse(timestamp); } catch (Exception e) { return null; }
     }
 
     private String csv(String value) {
