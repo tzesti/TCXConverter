@@ -87,11 +87,11 @@ public class CsvFormatter {
 
         sb.append(tp.lapNumber()).append(',')
           .append(elapsed).append(',')
-          .append(fmt(tp.altitudeMeters())).append(',')
-          .append(fmt(tp.distanceMeters())).append(',')
+          .append(fmt3(tp.altitudeMeters())).append(',')
+          .append(fmt3(tp.distanceMeters())).append(',')
           .append(fmt(tp.heartRateBpm())).append(',')
           .append(fmt(tp.cadence())).append(',')
-          .append(fmt(tp.speed())).append(',')
+          .append(fmt3(tp.speed())).append(',')
           .append(fmt(tp.runCadence())).append(',')
           .append(fmt(tp.watts())).append(',')
           .append(csv(tp.sensorState())).append('\n');
@@ -112,6 +112,10 @@ public class CsvFormatter {
 
     private String fmt(Double value) {
         return value == null ? "" : value.toString();
+    }
+
+    private String fmt3(Double value) {
+        return value == null ? "" : String.format("%.3f", value);
     }
 
     private String fmt(Integer value) {
