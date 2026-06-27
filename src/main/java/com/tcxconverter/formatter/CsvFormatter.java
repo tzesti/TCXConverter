@@ -6,6 +6,7 @@ import com.tcxconverter.model.TcxData;
 import com.tcxconverter.model.Trackpoint;
 
 import java.util.List;
+import java.util.OptionalDouble;
 
 public class CsvFormatter {
 
@@ -21,12 +22,26 @@ public class CsvFormatter {
     }
 
     private void appendActivity(StringBuilder sb, Activity activity, String authorName) {
+        List<Trackpoint> allPoints = activity.laps().stream()
+                .flatMap(l -> l.trackpoints().stream())
+                .toList();
+        OptionalDouble avgLat = allPoints.stream()
+                .filter(tp -> tp.latitude() != null)
+                .mapToDouble(Trackpoint::latitude)
+                .average();
+        OptionalDouble avgLon = allPoints.stream()
+                .filter(tp -> tp.longitude() != null)
+                .mapToDouble(Trackpoint::longitude)
+                .average();
+
         sb.append("# ACTIVITY\n");
-        sb.append("sport,id,creator,author\n");
+        sb.append("sport,id,creator,author,avg_latitude,avg_longitude\n");
         sb.append(csv(activity.sport())).append(',')
           .append(csv(activity.id())).append(',')
           .append(csv(activity.creatorName())).append(',')
-          .append(csv(authorName)).append('\n');
+          .append(csv(authorName)).append(',')
+          .append(avgLat.isPresent() ? String.format("%.4f", avgLat.getAsDouble()) : "").append(',')
+          .append(avgLon.isPresent() ? String.format("%.4f", avgLon.getAsDouble()) : "").append('\n');
 
         sb.append("\n# LAPS\n");
         sb.append("lap_number,start_time,total_time_seconds,distance_meters,")
@@ -37,7 +52,7 @@ public class CsvFormatter {
         }
 
         sb.append("\n# TRACKPOINTS\n");
-        sb.append("lap_number,time,latitude,longitude,altitude_m,distance_m,")
+        sb.append("lap_number,time,altitude_m,distance_m,")
           .append("heart_rate_bpm,cadence,speed_ms,run_cadence,watts,sensor_state\n");
         for (Lap lap : activity.laps()) {
             for (Trackpoint tp : lap.trackpoints()) {
@@ -63,8 +78,6 @@ public class CsvFormatter {
     private void appendTrackpoint(StringBuilder sb, Trackpoint tp) {
         sb.append(tp.lapNumber()).append(',')
           .append(csv(tp.time())).append(',')
-          .append(fmt(tp.latitude())).append(',')
-          .append(fmt(tp.longitude())).append(',')
           .append(fmt(tp.altitudeMeters())).append(',')
           .append(fmt(tp.distanceMeters())).append(',')
           .append(fmt(tp.heartRateBpm())).append(',')
