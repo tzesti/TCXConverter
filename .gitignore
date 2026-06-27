@@ -1,0 +1,15 @@
+# Gradle
+.gradle/
+build/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# TCX data files (personal activity data)
+*.tcx
+
+# OS
+Thumbs.db
+.DS_Store
