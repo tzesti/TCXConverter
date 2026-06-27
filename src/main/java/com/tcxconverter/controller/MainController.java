@@ -12,8 +12,12 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.List;
 
 public class MainController {
@@ -21,13 +25,16 @@ public class MainController {
     @FXML private TextArea outputTextArea;
     @FXML private Label statusLabel;
     @FXML private Button copyButton;
+    @FXML private Button saveButton;
 
     private final TcxParser parser = new TcxParser();
     private final CsvFormatter formatter = new CsvFormatter();
+    private File lastSourceFile;
 
     @FXML
     public void initialize() {
         copyButton.setDisable(true);
+        saveButton.setDisable(true);
     }
 
     @FXML
@@ -72,12 +79,15 @@ public class MainController {
                         .sum();
                 statusLabel.setText("Loaded: " + file.getName()
                         + " — " + trackpointCount + " trackpoints");
+                lastSourceFile = file;
                 copyButton.setDisable(false);
+                saveButton.setDisable(false);
                 success = true;
             } catch (Exception e) {
                 outputTextArea.setText("Error parsing file:\n" + e.getMessage());
                 statusLabel.setText("Failed to parse " + file.getName());
                 copyButton.setDisable(true);
+                saveButton.setDisable(true);
             }
         }
         event.setDropCompleted(success);
@@ -92,6 +102,33 @@ public class MainController {
             content.putString(text);
             Clipboard.getSystemClipboard().setContent(content);
             statusLabel.setText("Copied to clipboard!");
+        }
+    }
+
+    @FXML
+    public void onSaveClicked() {
+        String text = outputTextArea.getText();
+        if (text.isEmpty()) return;
+
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Save converted file");
+        chooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Text files", "*.txt"));
+
+        if (lastSourceFile != null) {
+            chooser.setInitialDirectory(lastSourceFile.getParentFile());
+            String baseName = lastSourceFile.getName().replaceAll("(?i)\\.tcx$", "");
+            chooser.setInitialFileName(baseName + ".txt");
+        }
+
+        File target = chooser.showSaveDialog(saveButton.getScene().getWindow());
+        if (target == null) return;
+
+        try {
+            Files.writeString(target.toPath(), text, StandardCharsets.UTF_8);
+            statusLabel.setText("Saved: " + target.getName());
+        } catch (IOException e) {
+            statusLabel.setText("Save failed: " + e.getMessage());
         }
     }
 

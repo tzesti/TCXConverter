@@ -24,6 +24,9 @@
         <Button fx:id="copyButton"
                 text="Copy All"
                 onAction="#onCopyClicked"/>
+        <Button fx:id="saveButton"
+                text="Save as .txt"
+                onAction="#onSaveClicked"/>
     </HBox>
 
     <TextArea fx:id="outputTextArea"
