@@ -3,7 +3,7 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.1.0'
 }
 
-group = 'com.tcxconverter'
+group = 'com.github.tzesti'
 version = '1.0-SNAPSHOT'
 
 repositories {
@@ -22,6 +22,6 @@ javafx {
 }
 
 application {
-    mainModule = 'com.tcxconverter'
-    mainClass = 'com.tcxconverter.Main'
+    mainModule = 'com.github.tzesti.tcxconverter'
+    mainClass = 'com.github.tzesti.tcxconverter.Main'
 }

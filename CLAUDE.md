@@ -6,12 +6,12 @@ JavaFX 21 desktop app that converts Garmin Connect `.tcx` files to CSV-style pla
 ## Build
 - Gradle 9.6.1 with `org.openjfx.javafxplugin 0.1.0`
 - Java 21 toolchain (set in `build.gradle`)
-- Run: Gradle task `application > run`, or IntelliJ run config pointing at `com.tcxconverter.Main`
-- The project is fully modular (`module-info.java`). `module-info.java` must `opens com.tcxconverter to javafx.fxml, javafx.graphics` — `javafx.graphics` is required because `LauncherImpl` reflectively instantiates `TcxConverterApp` at startup.
+- Run: Gradle task `application > run`, or IntelliJ run config pointing at `com.github.tzesti.tcxconverter.Main`
+- The project is fully modular (`module-info.java`). `module-info.java` must `opens com.github.tzesti.tcxconverter to javafx.fxml, javafx.graphics` — `javafx.graphics` is required because `LauncherImpl` reflectively instantiates `TcxConverterApp` at startup.
 
 ## Package layout
 ```
-com.tcxconverter
+com.github.tzesti.tcxconverter
 ├── Main.java                  entry point (delegates to TcxConverterApp)
 ├── TcxConverterApp.java       JavaFX Application subclass, loads main-view.fxml
 ├── controller/

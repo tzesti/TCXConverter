@@ -1,4 +1,4 @@
-package com.tcxconverter;
+package com.github.tzesti.tcxconverter;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

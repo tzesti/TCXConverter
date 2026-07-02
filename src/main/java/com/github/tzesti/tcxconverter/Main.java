@@ -1,4 +1,4 @@
-package com.tcxconverter;
+package com.github.tzesti.tcxconverter;
 
 public class Main {
     public static void main(String[] args) {

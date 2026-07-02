@@ -1,8 +1,8 @@
-package com.tcxconverter.controller;
+package com.github.tzesti.tcxconverter.controller;
 
-import com.tcxconverter.formatter.CsvFormatter;
-import com.tcxconverter.model.TcxData;
-import com.tcxconverter.parser.TcxParser;
+import com.github.tzesti.tcxconverter.formatter.CsvFormatter;
+import com.github.tzesti.tcxconverter.model.TcxData;
+import com.github.tzesti.tcxconverter.parser.TcxParser;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

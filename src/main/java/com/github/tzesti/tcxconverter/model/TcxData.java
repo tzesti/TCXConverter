@@ -1,4 +1,4 @@
-package com.tcxconverter.model;
+package com.github.tzesti.tcxconverter.model;
 
 import java.util.List;
 

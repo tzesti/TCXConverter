@@ -1,9 +1,9 @@
-package com.tcxconverter.parser;
+package com.github.tzesti.tcxconverter.parser;
 
-import com.tcxconverter.model.Activity;
-import com.tcxconverter.model.Lap;
-import com.tcxconverter.model.TcxData;
-import com.tcxconverter.model.Trackpoint;
+import com.github.tzesti.tcxconverter.model.Activity;
+import com.github.tzesti.tcxconverter.model.Lap;
+import com.github.tzesti.tcxconverter.model.TcxData;
+import com.github.tzesti.tcxconverter.model.Trackpoint;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

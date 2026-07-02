@@ -13,7 +13,7 @@ Converts Garmin Connect `.tcx` activity files into CSV-style plain text suitable
 2. IntelliJ detects `build.gradle` and prompts to import — click **Trust Project**
 3. Wait for Gradle sync to download JavaFX 21
 4. Run via **Gradle tool window → Tasks → application → run**,  
-   or create a Run Configuration: Main class `com.tcxconverter.Main`, module `com.tcxconverter`
+   or create a Run Configuration: Main class `com.github.tzesti.tcxconverter.Main`, module `com.github.tzesti.tcxconverter`
 
 ## Usage
 

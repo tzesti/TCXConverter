@@ -1,4 +1,4 @@
-package com.tcxconverter.model;
+package com.github.tzesti.tcxconverter.model;
 
 public record Trackpoint(
         int lapNumber,

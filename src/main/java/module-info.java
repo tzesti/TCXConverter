@@ -1,8 +1,8 @@
-module com.tcxconverter {
+module com.github.tzesti.tcxconverter {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.xml;
 
-    opens com.tcxconverter to javafx.fxml, javafx.graphics;
-    opens com.tcxconverter.controller to javafx.fxml;
+    opens com.github.tzesti.tcxconverter to javafx.fxml, javafx.graphics;
+    opens com.github.tzesti.tcxconverter.controller to javafx.fxml;
 }

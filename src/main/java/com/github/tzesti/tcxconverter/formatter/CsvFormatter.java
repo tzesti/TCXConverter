@@ -1,9 +1,9 @@
-package com.tcxconverter.formatter;
+package com.github.tzesti.tcxconverter.formatter;
 
-import com.tcxconverter.model.Activity;
-import com.tcxconverter.model.Lap;
-import com.tcxconverter.model.TcxData;
-import com.tcxconverter.model.Trackpoint;
+import com.github.tzesti.tcxconverter.model.Activity;
+import com.github.tzesti.tcxconverter.model.Lap;
+import com.github.tzesti.tcxconverter.model.TcxData;
+import com.github.tzesti.tcxconverter.model.Trackpoint;
 
 import java.time.Instant;
 import java.util.List;
