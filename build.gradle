@@ -5,7 +5,8 @@ plugins {
 }
 
 group = 'com.github.tzesti'
-version = '1.0-SNAPSHOT'
+description = "TCX Converter"
+version = '1.0'
 
 repositories {
     mavenCentral()
@@ -47,3 +48,19 @@ jlink {
     }
 }
 
+compileJava {
+    //options.compilerArgs += ["-Xlint:unchecked"]
+    // options.compilerArgs += ['--add-reads', 'com.philstar.app.PatrolChecker=ALL-UNNAMED']
+
+    doFirst {
+        def dir = new File(projectDir, "src/main/java/gradle")
+        dir.mkdirs()
+        new File(dir, "GradleProject.java").text = """package gradle;
+
+public class GradleProject {
+    public static final String ApplicationName = "$rootProject.description";
+    public static final String ApplicationVersion = "$version";
+}
+"""
+    }
+}

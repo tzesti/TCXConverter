@@ -1,5 +1,6 @@
 package com.github.tzesti.tcxconverter;
 
+import gradle.GradleProject;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,7 +14,7 @@ public class TcxConverterApp extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(TcxConverterApp.class.getResource("main-view.fxml"));
         Scene scene = new Scene(loader.load(), 960, 720);
-        stage.setTitle("TCX Converter");
+        stage.setTitle(GradleProject.ApplicationName + " " + GradleProject.ApplicationVersion);
         stage.setScene(scene);
         stage.show();
     }
