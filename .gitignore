@@ -13,3 +13,4 @@ out/
 # OS
 Thumbs.db
 .DS_Store
+/src/main/java/gradle/GradleProject.java
