@@ -1,6 +1,7 @@
 plugins {
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.1.0'
+    id 'org.beryx.jlink' version '3.2.1' // TODO: update to 4.0.2
 }
 
 group = 'com.github.tzesti'
@@ -25,3 +26,24 @@ application {
     mainModule = 'com.github.tzesti.tcxconverter'
     mainClass = 'com.github.tzesti.tcxconverter.Main'
 }
+
+jlink {
+    addExtraDependencies('javafx')
+
+    jpackage {
+        // javaHome = System.getenv('JAVA_HOME')
+        imageName = 'TCXConverter' // No spaces!
+        // imageOptions = ['--icon', 'res/patrolchecker.ico']
+        // imageOptions = ['--win-console']
+        installerOptions = [
+                '--install-dir', 'TCXConverter',
+                '--win-dir-chooser',
+                '--win-menu',
+                '--win-upgrade-uuid', '9490a7c5-6401-4cff-96c6-9c1675cbe217' // Version 4
+        ]
+
+        appVersion = "${version}"
+        installerType = 'msi'
+    }
+}
+
